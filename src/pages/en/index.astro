@@ -1,0 +1,39 @@
+---
+import Shell from '../../layouts/Shell.astro';
+---
+
+<!-- English home page -->
+<Shell
+  title="XD Tools — Free Online Utilities"
+  description="Free online utility tools. Precision coordinate conversion, smart format parsing, map visualization."
+>
+  <section class="hero">
+    <h1 class="hero-title">XD<span class="text-accent"> Tools</span></h1>
+    <p class="hero-subtitle">Precision · Speed · No clutter</p>
+  </section>
+
+  <section class="tool-grid">
+    <a href="/en/tools/coord/" class="tool-card">
+      <div class="tool-card-icon" aria-hidden="true">📍</div>
+      <h2 class="tool-card-title">Coordinate Converter</h2>
+      <p class="tool-card-desc">
+        Convert between WGS-84, GCJ-02, BD-09, and CGCS2000. Smart format parsing, map picker with offset visualization.
+      </p>
+      <span class="tool-card-link">Open →</span>
+    </a>
+  </section>
+</Shell>
+
+<style>
+  .hero { text-align: center; padding: var(--space-2xl) var(--space-xl); }
+  .hero-title { font-size: var(--text-2xl); font-weight: 700; }
+  .text-accent { color: var(--color-accent); }
+  .hero-subtitle { color: var(--color-text-secondary); margin-top: var(--space-sm); }
+  .tool-grid { max-width: 960px; margin: 0 auto; padding: 0 var(--space-xl) var(--space-section); }
+  .tool-card { display: block; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-xl); text-decoration: none; color: inherit; }
+  .tool-card:hover { border-color: var(--color-accent); box-shadow: var(--shadow-raised); }
+  .tool-card-icon { font-size: 2rem; margin-bottom: var(--space-sm); }
+  .tool-card-title { font-size: var(--text-lg); font-weight: 600; }
+  .tool-card-desc { color: var(--color-text-secondary); font-size: var(--text-sm); }
+  .tool-card-link { display: inline-block; margin-top: var(--space-md); color: var(--color-accent); font-size: var(--text-sm); font-weight: 500; }
+</style>

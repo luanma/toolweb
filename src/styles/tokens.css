@@ -1,0 +1,70 @@
+/* 数据仪器风 — 测绘仪器/仪表盘气质 */
+:root {
+  /* 色板 — 浅色仪器底 */
+  --color-bg: oklch(97% 0.001 240);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-raised: oklch(98% 0.002 240);
+  --color-border: oklch(88% 0.003 240);
+  --color-grid: oklch(92% 0.002 240);
+
+  /* 文字 */
+  --color-text: oklch(18% 0.003 240);
+  --color-text-secondary: oklch(45% 0.008 240);
+  --color-text-muted: oklch(60% 0.006 240);
+
+  /* 强调色 — 测绘仪器常出现的蓝青色 */
+  --color-accent: oklch(55% 0.15 240);
+  --color-accent-hover: oklch(50% 0.16 245);
+
+  /* 坐标系颜色 — 四个系统各有识别色 */
+  --color-wgs84: oklch(60% 0.17 240);
+  --color-gcj02: oklch(60% 0.17 30);
+  --color-bd09: oklch(60% 0.15 140);
+  --color-cgcs2000: oklch(55% 0.12 280);
+
+  /* 精度/标注 */
+  --color-precision: oklch(50% 0.12 80);
+  --color-error: oklch(55% 0.18 25);
+
+  /* 排版 */
+  --font-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system,
+    sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+
+  --text-base: clamp(0.938rem, 0.9rem + 0.2vw, 1rem);
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+  --text-lg: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  --text-coord: clamp(0.938rem, 0.9rem + 0.2vw, 1.063rem); /* 坐标专用等宽 */
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+
+  /* 间距 */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-section: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+
+  /* 圆角 — 仪器风 = 微圆角，像仪表盘刻度 */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* 阴影 — 极微妙，不要漂浮感 */
+  --shadow-surface: 0 1px 3px oklch(0% 0 0 / 0.06);
+  --shadow-raised: 0 2px 8px oklch(0% 0 0 / 0.08);
+
+  /* 动画 */
+  --duration-fast: 120ms;
+  --duration-normal: 250ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* 网格线 (映射到 tailwind 使用) */
+  --grid-line-color: oklch(90% 0.003 240);
+}

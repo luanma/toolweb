@@ -1,0 +1,109 @@
+---
+import Shell from '../layouts/Shell.astro';
+---
+
+<Shell title="XD工具箱 — 在线免费工具站">
+  <section class="hero">
+    <h1 class="hero-title">XD<span class="text-accent">工具箱</span></h1>
+    <p class="hero-subtitle">精确·快速·纯粹的在线工具集合</p>
+  </section>
+
+  <section class="tool-grid">
+    <a href="/tools/coord/" class="tool-card">
+      <div class="tool-card-icon coords-icon" aria-hidden="true">📍</div>
+      <h2 class="tool-card-title">坐标转换</h2>
+      <p class="tool-card-desc">
+        WGS-84 / GCJ-02 / BD-09 / CGCS2000 坐标系互转。支持十进制、度分秒、度分格式，地图拾取与偏移可视化。
+      </p>
+      <span class="tool-card-link">开始使用 →</span>
+    </a>
+
+    <!-- Future tools will be added here -->
+    <div class="tool-card tool-card--placeholder">
+      <div class="tool-card-icon" aria-hidden="true">🔜</div>
+      <h2 class="tool-card-title">更多工具</h2>
+      <p class="tool-card-desc">持续开发中…</p>
+    </div>
+  </section>
+</Shell>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-xl);
+  }
+  .hero-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .hero-subtitle {
+    color: var(--color-text-secondary);
+    margin-top: var(--space-sm);
+    font-size: var(--text-lg);
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl) var(--space-section);
+  }
+
+  .tool-card {
+    display: block;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      box-shadow var(--duration-fast) var(--ease-out-expo),
+      border-color var(--duration-fast) var(--ease-out-expo);
+  }
+  .tool-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-raised);
+  }
+  .tool-card--placeholder {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .tool-card-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+  .tool-card-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0 0 var(--space-xs);
+  }
+  .tool-card-desc {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+  .tool-card-link {
+    display: inline-block;
+    margin-top: var(--space-md);
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .tool-grid {
+      grid-template-columns: 1fr;
+      padding: 0 var(--space-md) var(--space-section);
+    }
+    .hero {
+      padding: var(--space-xl) var(--space-md);
+    }
+  }
+</style>

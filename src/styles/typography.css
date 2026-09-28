@@ -1,0 +1,25 @@
+/* 字体 */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: var(--leading-tight);
+}
+
+/* 坐标数值专用 — 等宽、仪器感 */
+.coord-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-coord);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}

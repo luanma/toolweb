@@ -1,0 +1,48 @@
+---
+import Shell from '../../../layouts/Shell.astro';
+---
+
+<Shell
+  title="在线坐标转换 | WGS84 / GCJ02 / BD09 / CGCS2000 互转 | XD工具箱"
+  description="免费在线坐标转换工具，支持 WGS-84、GCJ-02 (火星坐标)、BD-09 (百度坐标)、CGCS2000 (国家大地坐标系) 互转。智能输入解析，地图可视化。"
+>
+  <div class="coord-page">
+    <h1 class="coord-title">坐标转换</h1>
+    <p class="coord-subtitle">
+      输入任意坐标系的经纬度，同时获取其他三个坐标系的结果
+    </p>
+    <div id="converter-root" class="converter-placeholder">
+      <p>🔄 转换器加载中...</p>
+    </div>
+    <div id="map-root" class="map-placeholder">
+      <p>🗺️ 地图加载中...</p>
+    </div>
+  </div>
+</Shell>
+
+<style>
+  .coord-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-section) var(--space-xl);
+  }
+  .coord-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+  .coord-subtitle {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+  .converter-placeholder,
+  .map-placeholder {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+</style>
