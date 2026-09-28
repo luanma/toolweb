@@ -44,12 +44,27 @@ export default function Converter() {
     }
   });
 
-  function handleInput(val: string) {
+  // Listen for map pick events
+  useSignalEffect(() => {
+    if (typeof window === 'undefined') return;
+    function onMapPick(e: Event) {
+      const d = (e as CustomEvent<{ lng: number; lat: number; from: string }>).detail;
+      if (!d) return;
+      fromSystem.value = 'gcj02';
+      const input = `${d.lng.toFixed(6)}, ${d.lat.toFixed(6)}`;
+      rawInput.value = input;
+      handleInputValue(input, 'gcj02');
+    }
+    window.addEventListener('mappick', onMapPick);
+    return () => window.removeEventListener('mappick', onMapPick);
+  });
+
+  function handleInputValue(val: string, sys: CoordSystem) {
     rawInput.value = val;
     if (!val.trim()) {
       result.value = null;
       error.value = '';
-      syncUrl('', fromSystem.value);
+      syncUrl('', sys);
       return;
     }
     const parsed = parseCoord(val.trim());
@@ -77,7 +92,7 @@ export default function Converter() {
   function switchSystem(sys: CoordSystem) {
     fromSystem.value = sys;
     if (rawInput.value.trim()) {
-      handleInput(rawInput.value);
+      handleInputValue(rawInput.value, fromSystem.value);
     }
   }
 
@@ -94,7 +109,7 @@ export default function Converter() {
           type="text"
           placeholder="输入坐标，如 116.404, 39.915"
           value={rawInput}
-          onInput={(e) => handleInput((e.target as HTMLInputElement).value)}
+          onInput={(e) => handleInputValue((e.target as HTMLInputElement).value, fromSystem.value)}
           aria-label="坐标输入"
         />
         <button

@@ -1,6 +1,7 @@
 ---
 import Shell from '../../../layouts/Shell.astro';
 import Converter from '../../../islands/Converter';
+import MapPicker from '../../../islands/MapPicker';
 ---
 
 <Shell
@@ -13,8 +14,9 @@ import Converter from '../../../islands/Converter';
       输入任意坐标系的经纬度，同时获取其他三个坐标系的结果
     </p>
     <Converter client:load />
-    <div id="map-root" class="map-placeholder">
-      <p>🗺️ 地图加载中...</p>
+    <div class="map-section">
+      <h2 class="map-section-title">地图预览</h2>
+      <MapPicker client:visible />
     </div>
   </div>
 </Shell>
@@ -23,6 +25,8 @@ import Converter from '../../../islands/Converter';
   .coord-page { max-width: 960px; margin: 0 auto; padding: var(--space-section) var(--space-xl); }
   .coord-title { font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-xs); }
   .coord-subtitle { color: var(--color-text-secondary); margin-bottom: var(--space-xl); }
+  .map-section { margin-top: var(--space-xl); }
+  .map-section-title { font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-sm); }
   .map-placeholder { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-xl); text-align: center; color: var(--color-text-muted); margin-top: var(--space-lg); height: 400px; display: flex; align-items: center; justify-content: center; }
 
   /* Converter styles scoped to this page */

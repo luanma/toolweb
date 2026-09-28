@@ -1,5 +1,7 @@
 ---
 import Shell from '../../../../layouts/Shell.astro';
+import Converter from '../../../../islands/Converter';
+import MapPicker from '../../../../islands/MapPicker';
 ---
 
 <Shell
@@ -10,11 +12,10 @@ import Shell from '../../../../layouts/Shell.astro';
   <div class="coord-page">
     <h1 class="coord-title">Coordinate Converter</h1>
     <p class="coord-subtitle">Enter coordinates in one system, see all four instantly</p>
-    <div class="converter-placeholder">
-      <p>🔄 Converter loading...</p>
-    </div>
-    <div class="map-placeholder">
-      <p>🗺️ Map loading...</p>
+    <Converter client:load />
+    <div class="map-section">
+      <h2 class="map-section-title">Map Preview</h2>
+      <MapPicker client:visible />
     </div>
   </div>
 </Shell>
@@ -23,5 +24,6 @@ import Shell from '../../../../layouts/Shell.astro';
   .coord-page { max-width: 960px; margin: 0 auto; padding: var(--space-section) var(--space-xl); }
   .coord-title { font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-xs); }
   .coord-subtitle { color: var(--color-text-secondary); margin-bottom: var(--space-xl); }
-  .converter-placeholder, .map-placeholder { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-xl); text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-lg); }
+  .map-section { margin-top: var(--space-xl); }
+  .map-section-title { font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-sm); }
 </style>
