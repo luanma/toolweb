@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Shell from '../../../layouts/Shell.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('guide');
+  return pages
+    .filter((e) => e.id.startsWith('en/'))
+    .map((e) => ({
+      params: { slug: e.id.replace(/^en\//, '').replace(/\.md$/, '') },
+      props: { entry: e },
+    }));
+}
+
+const { entry } = Astro.props;
+const { data, body } = entry;
+---
+
+<Shell title={data.title} description={data.description}>
+  <article class="guide-page">
+    <h1 class="guide-h1">{data.h1}</h1>
+    <div class="guide-body" set:html={body} />
+    <nav class="guide-back">
+      <a href="/en/tools/coord/">← Back to Coordinate Converter</a>
+    </nav>
+  </article>
+</Shell>
+
+<style>
+  .guide-page { max-width: 720px; margin: 0 auto; padding: var(--space-section) var(--space-xl); }
+  .guide-h1 { font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-xl); }
+  .guide-body { line-height: var(--leading-normal); }
+  .guide-body :global(h2) { font-size: var(--text-xl); font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); }
+  .guide-body :global(p) { margin-bottom: var(--space-md); color: var(--color-text-secondary); }
+  .guide-body :global(table) { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; }
+  .guide-body :global(th), .guide-body :global(td) { border: 1px solid var(--color-border); padding: var(--space-sm) var(--space-md); text-align: left; font-size: var(--text-sm); }
+  .guide-body :global(th) { background: oklch(96% 0.002 240); font-weight: 600; }
+  .guide-body :global(a) { color: var(--color-accent); text-decoration: underline; }
+  .guide-back { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border); }
+  .guide-back a { color: var(--color-accent); text-decoration: none; font-weight: 500; }
+</style>

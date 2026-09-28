@@ -1,0 +1,17 @@
+---
+import Shell from '../layouts/Shell.astro';
+---
+
+<Shell title="404 — 页面未找到 | XD工具箱">
+  <div class="not-found">
+    <h1>404</h1>
+    <p>页面未找到。</p>
+    <a href="/">← 回到首页</a>
+  </div>
+</Shell>
+
+<style>
+  .not-found { max-width: 480px; margin: var(--space-section) auto; text-align: center; padding: var(--space-xl); }
+  .not-found h1 { font-size: 4rem; font-weight: 700; color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+  .not-found a { color: var(--color-accent); text-decoration: none; font-weight: 500; }
+</style>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zhangleixd.com/sitemap-index.xml
