@@ -1,19 +1,18 @@
 ---
 import Shell from '../../../layouts/Shell.astro';
+import Converter from '../../../islands/Converter';
 ---
 
 <Shell
   title="在线坐标转换 | WGS84 / GCJ02 / BD09 / CGCS2000 互转 | XD工具箱"
-  description="免费在线坐标转换工具，支持 WGS-84、GCJ-02 (火星坐标)、BD-09 (百度坐标)、CGCS2000 (国家大地坐标系) 互转。智能输入解析，地图可视化。"
+  description="免费在线坐标转换工具，支持 WGS-84、GCJ-02 (火星坐标)、BD-09 (百度坐标)、CGCS2000 (国家大地坐标系) 互转。智能输入解析，支持度分秒、度分格式。"
 >
   <div class="coord-page">
     <h1 class="coord-title">坐标转换</h1>
     <p class="coord-subtitle">
       输入任意坐标系的经纬度，同时获取其他三个坐标系的结果
     </p>
-    <div id="converter-root" class="converter-placeholder">
-      <p>🔄 转换器加载中...</p>
-    </div>
+    <Converter client:load />
     <div id="map-root" class="map-placeholder">
       <p>🗺️ 地图加载中...</p>
     </div>
@@ -21,28 +20,31 @@ import Shell from '../../../layouts/Shell.astro';
 </Shell>
 
 <style>
-  .coord-page {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: var(--space-section) var(--space-xl);
-  }
-  .coord-title {
-    font-size: var(--text-2xl);
-    font-weight: 700;
-    margin-bottom: var(--space-xs);
-  }
-  .coord-subtitle {
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-xl);
-  }
-  .converter-placeholder,
-  .map-placeholder {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-    text-align: center;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-lg);
-  }
+  .coord-page { max-width: 960px; margin: 0 auto; padding: var(--space-section) var(--space-xl); }
+  .coord-title { font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-xs); }
+  .coord-subtitle { color: var(--color-text-secondary); margin-bottom: var(--space-xl); }
+  .map-placeholder { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-xl); text-align: center; color: var(--color-text-muted); margin-top: var(--space-lg); height: 400px; display: flex; align-items: center; justify-content: center; }
+
+  /* Converter styles scoped to this page */
+  .converter :global(.input-row) { display: flex; gap: var(--space-sm); margin-bottom: var(--space-md); }
+  .converter :global(.coord-input) { flex: 1; padding: var(--space-md); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-lg); background: var(--color-surface); color: var(--color-text); }
+  .converter :global(.coord-input):focus { outline: none; border-color: var(--color-accent); }
+  .converter :global(.btn-clear) { padding: 0 var(--space-md); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text-muted); cursor: pointer; font-size: var(--text-lg); }
+  .converter :global(.sys-switch) { display: flex; gap: var(--space-sm); align-items: center; flex-wrap: wrap; margin-bottom: var(--space-lg); }
+  .converter :global(.sys-switch-label) { font-size: var(--text-sm); color: var(--color-text-secondary); }
+  .converter :global(.sys-btn) { padding: var(--space-xs) var(--space-md); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text-secondary); cursor: pointer; font-size: var(--text-sm); transition: border-color var(--duration-fast), color var(--duration-fast); }
+  .converter :global(.sys-btn--active) { color: var(--color-accent); font-weight: 600; }
+  .converter :global(.error-msg) { padding: var(--space-md); background: oklch(92% 0.02 25); border-radius: var(--radius-md); color: oklch(45% 0.15 25); font-size: var(--text-sm); margin-bottom: var(--space-md); }
+  .converter :global(.results-grid) { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin-bottom: var(--space-md); }
+  .converter :global(.result-card) { background: var(--color-surface); border: 1px solid; border-radius: var(--radius-md); padding: var(--space-md); display: flex; flex-direction: column; gap: var(--space-sm); }
+  .converter :global(.result-header) { display: flex; justify-content: space-between; align-items: baseline; }
+  .converter :global(.result-sys) { font-weight: 700; font-size: var(--text-base); }
+  .converter :global(.result-desc) { font-size: var(--text-xs); color: var(--color-text-muted); }
+  .converter :global(.result-values) { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .converter :global(.coord-value) { font-family: var(--font-mono); font-size: var(--text-coord); font-variant-numeric: tabular-nums; color: var(--color-text); }
+  .converter :global(.coord-decimal) { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); }
+  .converter :global(.result-note) { font-size: var(--text-sm); color: var(--color-text-muted); font-style: italic; }
+  .converter :global(.btn-copy) { padding: var(--space-xs) var(--space-sm); border: none; border-radius: var(--radius-sm); background: oklch(94% 0.003 240); color: var(--color-text-secondary); cursor: pointer; font-size: var(--text-xs); align-self: flex-start; }
+  .converter :global(.btn-copy):hover { background: oklch(90% 0.005 240); }
+  .converter :global(.precision-note) { font-size: var(--text-xs); color: var(--color-text-muted); background: oklch(96% 0.003 240); border-radius: var(--radius-md); padding: var(--space-sm) var(--space-md); }
 </style>

@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import Shell from '../../../../layouts/Shell.astro';
+import Converter from '../../../../islands/Converter';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('landing');
+  return pages
+    .filter((e) => e.id.startsWith('en/'))
+    .map((e) => ({
+      params: { slug: e.id.replace(/^en\//, '').replace(/\.md$/, '') },
+      props: { entry: e },
+    }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+---
+
+<Shell title={data.title} description={data.description}>
+  <article class="landing-page">
+    <h1 class="landing-h1">{data.h1}</h1>
+    <p class="landing-desc">{data.description}</p>
+    <section class="landing-converter">
+      <Converter client:load from={data.from} to={data.to} />
+    </section>
+    {data.faq && data.faq.length > 0 && (
+      <section class="landing-faq">
+        <h2>FAQ</h2>
+        {data.faq.map((item: { q: string; a: string }) => (
+          <details class="faq-item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </section>
+    )}
+    <nav class="landing-related">
+      <h2>More Conversions</h2>
+      <ul>
+        <li><a href="/en/tools/coord/">All directions →</a></li>
+      </ul>
+    </nav>
+  </article>
+</Shell>
+
+<style>
+  .landing-page { max-width: 960px; margin: 0 auto; padding: var(--space-section) var(--space-xl); }
+  .landing-h1 { font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-xs); }
+  .landing-desc { color: var(--color-text-secondary); margin-bottom: var(--space-xl); }
+  .landing-converter { margin-bottom: var(--space-xl); }
+  .landing-faq { margin-top: var(--space-xl); }
+  .landing-faq h2 { font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-lg); }
+  .faq-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-md); margin-bottom: var(--space-sm); }
+  .faq-item summary { cursor: pointer; font-weight: 500; }
+  .faq-item p { margin-top: var(--space-sm); color: var(--color-text-secondary); font-size: var(--text-sm); }
+  .landing-related { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border); }
+  .landing-related h2 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
+  .landing-related a { color: var(--color-accent); text-decoration: none; }
+</style>
